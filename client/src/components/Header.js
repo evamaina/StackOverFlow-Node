@@ -1,22 +1,36 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
     renderContent() {
         switch (this.props.auth) {
             case null:
-                return "stiil deciding";
+                return;
             case false:
-                return "im logged out";
+                return (
+                    <li>
+                        <a href="/auth/google">Login With Google</a>
+                    </li>
+                );
             default:
-                return "im logged in";
+                return (
+                    <li>
+                        <a href="/api/logout">Logout</a>
+                    </li>
+                );
         }
     }
     render() {
         return (
             <nav>
                 <div className="navWrapper">
-                    <a className="left brand-logo">StackOverFlow</a>
+                    <Link
+                        to={this.props.auth ? "/surveys" : "/"}
+                        className="brand-logo"
+                    >
+                        Eva
+                    </Link>
                     <ul className="right">
                         <li>{this.renderContent()}</li>
                     </ul>
